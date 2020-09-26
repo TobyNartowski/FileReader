@@ -10,11 +10,13 @@ public class MySQLDatabaseConnector implements DatabaseConnector {
 
     @Override
     public void initialize(String url, String username, String password) {
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            System.err.println("Connection with database failed");
-            e.printStackTrace();
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(url, username, password);
+            } catch (SQLException e) {
+                System.err.println("Connection with database failed");
+                e.printStackTrace();
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package pl.tobynartowski.profile;
 
 import pl.tobynartowski.database.DatabaseConnector;
+import pl.tobynartowski.database.executor.Executor;
 import pl.tobynartowski.exception.UnknownProfileException;
 
 import java.util.function.Supplier;
@@ -30,6 +31,8 @@ public abstract class ProfileManager {
     }
 
     public abstract DatabaseConnector getDatabaseConnector();
+
+    public abstract Executor getExecutor();
 
     public static ProfileManager loadProfile(final String[] args) {
         if (args.length < 1) {
