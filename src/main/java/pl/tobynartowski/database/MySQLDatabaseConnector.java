@@ -15,7 +15,7 @@ public class MySQLDatabaseConnector implements DatabaseConnector {
                 connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
                 System.err.println("Connection with database failed");
-                e.printStackTrace();
+                throw new IllegalStateException(e);
             }
         }
     }

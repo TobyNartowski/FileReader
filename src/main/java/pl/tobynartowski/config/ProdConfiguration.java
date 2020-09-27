@@ -1,8 +1,9 @@
 package pl.tobynartowski.config;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -14,9 +15,9 @@ public class ProdConfiguration implements Configuration {
     @Override
     public void load() {
         try {
-            final URL url = Optional.ofNullable(getClass().getClassLoader().getResource(CONFIGURATION_FILE))
+            final InputStream inputStream = Optional.ofNullable(getClass().getClassLoader().getResourceAsStream(CONFIGURATION_FILE))
                     .orElseThrow(() -> new IllegalStateException("No configuration file found"));
-            properties.load(new FileInputStream(url.getFile()));
+            properties.load(inputStream);
         } catch (IOException e) {
             System.err.println("Failed to open configuration file");
             e.printStackTrace();
@@ -36,5 +37,10 @@ public class ProdConfiguration implements Configuration {
     @Override
     public String getDatabasePassword() {
         return properties.getProperty(Configuration.Key.getProperty(Key.DATABASE_PASSWORD));
+    }
+
+    @Override
+    public List<String> getSupportedInputFiles() {
+        return Arrays.asList(properties.getProperty(Configuration.Key.getProperty(Key.FILE_INPUT_TYPES)).split(","));
     }
 }

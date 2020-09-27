@@ -17,7 +17,7 @@ public class MySQLExecutor implements Executor {
     }
 
     @Override
-    public void createTables() {
+    public void createTablesIfNeeded() {
         final TopologicalSorter<CreateQuery> sorter = new TopologicalSorter<>();
 
         sorter.sortData(CreateQuery.definedTables, CreateQuery::getDependencyTables).forEach(this::createTable);

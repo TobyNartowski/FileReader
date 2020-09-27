@@ -7,9 +7,10 @@ public class ContactsCreateQuery implements CreateQuery {
 
     private static final String QUERY =
             "CREATE TABLE IF NOT EXISTS CONTACTS (\n" +
-            "    ID INT PRIMARY KEY,\n" +
-            "    ID_CUSTOMER INT NOT NULL,\n" +
+            "    ID VARCHAR(36) PRIMARY KEY,\n" +
+            "    ID_CUSTOMER VARCHAR(36) NOT NULL,\n" +
             "    TYPE TINYINT NOT NULL,\n" +
+            "    CONTACT VARCHAR(256) NOT NULL,\n" +
             "    FOREIGN KEY (ID_CUSTOMER) REFERENCES CUSTOMERS(ID)\n" +
             ")";
 

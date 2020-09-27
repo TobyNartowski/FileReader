@@ -6,6 +6,7 @@ import pl.tobynartowski.database.DatabaseConnector;
 import pl.tobynartowski.database.MySQLDatabaseConnector;
 import pl.tobynartowski.database.executor.Executor;
 import pl.tobynartowski.database.executor.MySQLExecutor;
+import pl.tobynartowski.utils.InputFileUtils;
 
 public class ProdProfileManager extends ProfileManager {
 
@@ -28,5 +29,10 @@ public class ProdProfileManager extends ProfileManager {
     @Override
     public Executor getExecutor() {
         return new MySQLExecutor(getDatabaseConnector().getConnection());
+    }
+
+    @Override
+    public InputFileUtils getInputFileUtils() {
+        return new InputFileUtils(configuration.getSupportedInputFiles());
     }
 }
