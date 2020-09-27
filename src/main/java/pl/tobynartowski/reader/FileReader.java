@@ -2,7 +2,7 @@ package pl.tobynartowski.reader;
 
 public interface FileReader<T> {
 
-    void openStream(String path);
+    void openStream();
 
     void closeStream();
 

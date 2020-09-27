@@ -33,13 +33,18 @@ public class CustomerXmlFileReader implements FileReader<Customer> {
     }
 
     private XMLEventReader reader;
+    private final String path;
+
+    public CustomerXmlFileReader(final String path) {
+        this.path = path;
+    }
 
     @Override
-    public void openStream(String resourcePath) {
+    public void openStream() {
         try {
-            reader = XMLInputFactory.newInstance().createXMLEventReader(new FileInputStream(resourcePath));
+            reader = XMLInputFactory.newInstance().createXMLEventReader(new FileInputStream(path));
         } catch (XMLStreamException | FileNotFoundException e) {
-            System.err.println("Error while reading file: " + resourcePath);
+            System.err.println("Error while reading file: " + path);
             throw new RuntimeException(e);
         }
     }
@@ -105,17 +110,17 @@ public class CustomerXmlFileReader implements FileReader<Customer> {
                             customer.setAge(Integer.parseInt(dataEvent.asCharacters().getData()));
                             break;
                         case EMAIL:
-                            customer.addContact(new Contact(UUID.randomUUID(), dataEvent.asCharacters().getData(), Contact.Type.EMAIL));
+                            customer.addContact(new Contact(UUID.randomUUID(), customer.getId(), dataEvent.asCharacters().getData(), Contact.Type.EMAIL));
                             break;
                         case PHONE:
-                            customer.addContact(new Contact(UUID.randomUUID(), dataEvent.asCharacters().getData(), Contact.Type.PHONE));
+                            customer.addContact(new Contact(UUID.randomUUID(), customer.getId(), dataEvent.asCharacters().getData(), Contact.Type.PHONE));
                             break;
                         case JABBER:
-                            customer.addContact(new Contact(UUID.randomUUID(), dataEvent.asCharacters().getData(), Contact.Type.JABBER));
+                            customer.addContact(new Contact(UUID.randomUUID(), customer.getId(), dataEvent.asCharacters().getData(), Contact.Type.JABBER));
                             break;
                         case UNKNOWN:
                             if (customer.getContactList() != null) {
-                                customer.addContact(new Contact(UUID.randomUUID(), dataEvent.asCharacters().getData(), Contact.Type.UNKNOWN));
+                                customer.addContact(new Contact(UUID.randomUUID(), customer.getId(), dataEvent.asCharacters().getData(), Contact.Type.UNKNOWN));
                             }
                             break;
                     }

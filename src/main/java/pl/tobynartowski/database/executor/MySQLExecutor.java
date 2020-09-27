@@ -5,8 +5,10 @@ import pl.tobynartowski.database.query.create.CreateQuery;
 import pl.tobynartowski.utils.TopologicalSorter;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class MySQLExecutor implements Executor {
 
@@ -29,6 +31,18 @@ public class MySQLExecutor implements Executor {
             statement.executeUpdate(createQuery.getQuery());
         } catch (SQLException throwables) {
             System.err.println("Cannot create table with query: " + createQuery.getQuery());
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void insertData(List<PreparedStatement> statements) {
+        try {
+            for (PreparedStatement s : statements) {
+                s.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            System.err.println("Cannot insert data");
             throwables.printStackTrace();
         }
     }

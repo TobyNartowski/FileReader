@@ -9,15 +9,15 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class CustomerXmlFileReaderTest {
+public class CustomerTxtFileReaderTest {
 
-    private final static String FILENAME = "input/dane-osoby.xml";
+    private final static String FILENAME = "input/dane-osoby.txt";
 
     @Test
     public void should_read_proper_customer_data() {
         // given
         final String file = getClass().getClassLoader().getResource(FILENAME).getFile();
-        final FileReader<Customer> reader = new CustomerXmlFileReader(file);
+        final FileReader<Customer> reader = new CustomerTxtFileReader(file);
         reader.openStream();
 
         // when
@@ -38,7 +38,7 @@ public class CustomerXmlFileReaderTest {
         // given
         final String file = getClass().getClassLoader().getResource(FILENAME).getFile();
         final List<Customer> customerList = new ArrayList<>();
-        final FileReader<Customer> reader = new CustomerXmlFileReader(file);
+        final FileReader<Customer> reader = new CustomerTxtFileReader(file);
         reader.openStream();
 
         // when

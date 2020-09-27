@@ -10,11 +10,13 @@ public class Contact {
     }
 
     private UUID id;
+    private UUID customerId;
     private String contact;
     private Type type;
 
-    public Contact(UUID id, String contact, Type type) {
+    public Contact(UUID id, UUID customerId, String contact, Type type) {
         this.id = id;
+        this.customerId = customerId;
         this.contact = contact;
         this.type = type;
     }
@@ -25,6 +27,14 @@ public class Contact {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
     }
 
     public String getContact() {
